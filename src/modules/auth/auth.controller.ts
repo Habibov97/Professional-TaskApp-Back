@@ -5,12 +5,15 @@ import {
   Req,
   Res,
   UnauthorizedException,
+  UseGuards,
 } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { RegisterDto } from './dto/register.dto';
 import { LoginDto } from './dto/login.dto';
 import type { Response, Request } from 'express';
 import { ConfigService } from '@nestjs/config';
+import { AuthGuard } from './guard/auth.guard';
+import { ApiBearerAuth } from '@nestjs/swagger';
 
 @Controller('auth')
 export class AuthController {
@@ -61,9 +64,11 @@ export class AuthController {
     return { accessToken: tokens.accessToken };
   }
 
+  @ApiBearerAuth('JWT-auth')
+  @UseGuards(AuthGuard)
   @Post('/logout')
   async logout(@Res({ passthrough: true }) res: Response, @Req() req: Request) {
-    await this.authService.login(req['user'].userId);
+    await this.authService.logout(req['user'].userId);
 
     res.clearCookie('refreshToken');
 
