@@ -15,13 +15,13 @@ export class RegisterDto {
   @Type()
   @IsString()
   @MinLength(3)
-  @IsAlphanumeric(undefined, { message: 'First name must be alphanumeric' })
+  @IsAlphanumeric(undefined, { message: 'Firstname must be alphanumeric' })
   @ApiProperty({ default: 'John' })
   firstName: string;
 
   @Type()
   @IsString()
-  @IsAlphanumeric(undefined, { message: 'First name must be alphanumeric' })
+  @IsAlphanumeric(undefined, { message: 'Lastname must be alphanumeric' })
   @MinLength(3)
   @ApiProperty({ default: 'Doe' })
   lastName: string;
@@ -29,6 +29,7 @@ export class RegisterDto {
   @Type()
   @IsString()
   @MinLength(3)
+  @IsAlphanumeric(undefined, { message: 'Username must be alphanumeric' })
   @MaxLength(20)
   @ApiProperty({ default: 'JohnDoe' })
   userName: string;

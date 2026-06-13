@@ -22,7 +22,7 @@ export class AuthService {
 
   async register(body: RegisterDto) {
     const user = await this.userRepo.exists({
-      where: { userName: body.userName },
+      where: { userName: body.userName, email: body.email },
     });
     if (user) throw new ConflictException('User already exists');
 
