@@ -12,21 +12,21 @@ import {
 import { Type } from 'class-transformer';
 
 export class RegisterDto {
-  @Type(() => String)
+  @Type()
   @IsString()
   @MinLength(3)
-  @IsAlphanumeric('en-US', { message: 'First name must be alphanumeric' })
+  @IsAlphanumeric(undefined, { message: 'First name must be alphanumeric' })
   @ApiProperty({ default: 'John' })
   firstName: string;
 
-  @Type(() => String)
+  @Type()
   @IsString()
-  @IsAlphanumeric('en-US', { message: 'First name must be alphanumeric' })
+  @IsAlphanumeric(undefined, { message: 'First name must be alphanumeric' })
   @MinLength(3)
   @ApiProperty({ default: 'Doe' })
   lastName: string;
 
-  @Type(() => String)
+  @Type()
   @IsString()
   @MinLength(3)
   @MaxLength(20)
@@ -38,7 +38,7 @@ export class RegisterDto {
   @ApiProperty({ default: 'johndoe@gmail.com' })
   email: string;
 
-  @Type(() => String)
+  @Type()
   @IsString()
   @MinLength(3)
   @ApiProperty({ default: 'password' })
