@@ -6,6 +6,8 @@ import {
   MinLength,
   MaxLength,
   IsUrl,
+  IsLowercase,
+  IsAlphanumeric,
 } from 'class-validator';
 import { Type } from 'class-transformer';
 
@@ -13,11 +15,13 @@ export class RegisterDto {
   @Type(() => String)
   @IsString()
   @MinLength(3)
+  @IsAlphanumeric('en-US', { message: 'First name must be alphanumeric' })
   @ApiProperty({ default: 'John' })
   firstName: string;
 
   @Type(() => String)
   @IsString()
+  @IsAlphanumeric('en-US', { message: 'First name must be alphanumeric' })
   @MinLength(3)
   @ApiProperty({ default: 'Doe' })
   lastName: string;
@@ -30,6 +34,7 @@ export class RegisterDto {
   userName: string;
 
   @IsEmail()
+  @IsLowercase({ message: 'Email must be lowercase' })
   @ApiProperty({ default: 'johndoe@gmail.com' })
   email: string;
 
