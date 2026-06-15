@@ -58,7 +58,7 @@ export class AuthController {
       httpOnly: true,
       secure: true,
       sameSite: 'none',
-      maxAge: this.configService.get<number>('jwtRefresh.cookieAge'),
+      maxAge: 14 * 24 * 60 * 60 * 1000,
     });
 
     return { accessToken: tokens.accessToken };
