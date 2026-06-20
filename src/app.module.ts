@@ -3,6 +3,7 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { UserModule } from './modules/user/user.module';
 import { AuthModule } from './modules/auth/auth.module';
+import { CategoryModule } from './modules/category/category.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { ConfigModule } from '@nestjs/config';
 
@@ -21,6 +22,7 @@ import { ConfigModule } from '@nestjs/config';
 
     UserModule,
     AuthModule,
+    CategoryModule,
   ],
   controllers: [AppController],
   providers: [AppService],
