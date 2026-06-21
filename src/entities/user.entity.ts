@@ -6,10 +6,12 @@ import {
   Column,
   CreateDateColumn,
   Entity,
+  JoinColumn,
+  OneToMany,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
-
+import { TaskEntity } from './task.entity';
 import bcrypt from 'bcrypt';
 
 @Entity()
@@ -25,6 +27,9 @@ export class UserEntity extends BaseEntity {
 
   @Column({ unique: true })
   userName: string;
+
+  @OneToMany(() => TaskEntity, (task) => task.user)
+  tasks: TaskEntity[];
 
   @Column({ unique: true })
   email: string;

@@ -1,4 +1,4 @@
-import { BadRequestException, Injectable, OnModuleInit } from '@nestjs/common';
+import { ForbiddenException, Injectable, OnModuleInit } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { CategoryEntity } from 'src/entities/category.entity';
 import { IsNull, Repository } from 'typeorm';
@@ -40,9 +40,9 @@ export class CategoryService implements OnModuleInit {
   async create(userId: string, body: CreateCategoryDto) {
     const { user } = await this.userService.me(userId);
     if (user.role !== 'admin') {
-      throw new BadRequestException('Only admin can create task action');
+      throw new ForbiddenException('Only admin can create task action');
     }
-    const parent = this.categoryRepo.findOne({
+    const parent = await this.categoryRepo.findOne({
       where: {
         id: body.parentId,
         parentId: IsNull(),
@@ -50,7 +50,7 @@ export class CategoryService implements OnModuleInit {
     });
 
     if (!parent) {
-      throw new BadRequestException(
+      throw new ForbiddenException(
         'Parent category not found or it is not a root category',
       );
     }
@@ -68,14 +68,14 @@ export class CategoryService implements OnModuleInit {
   async update(userId: string, id: string, body: UpdateCategoryDto) {
     const { user } = await this.userService.me(userId);
     if (user.role !== 'admin') {
-      throw new BadRequestException('Only admin can update task categories');
+      throw new ForbiddenException('Only admin can update task categories');
     }
     const category = await this.categoryRepo.findOne({
       where: { id },
     });
 
     if (!category) {
-      throw new BadRequestException('Category not found');
+      throw new ForbiddenException('Category not found');
     }
 
     category.title = body.title as string;
@@ -91,7 +91,7 @@ export class CategoryService implements OnModuleInit {
   async remove(userId: string, id: string) {
     const { user } = await this.userService.me(userId);
     if (user.role !== 'admin') {
-      throw new BadRequestException('Only admin can delete task categories');
+      throw new ForbiddenException('Only admin can delete task categories');
     }
     await this.categoryRepo.delete({ id });
 
