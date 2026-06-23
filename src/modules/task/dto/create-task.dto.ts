@@ -19,9 +19,11 @@ export class CreateTaskDto {
   description: string;
 
   @IsUUID('4', { message: 'statusId must be a valid UUID' })
+  @ApiProperty({ required: true })
   statusId: string;
 
   @IsUUID('4', { message: 'priorityId must be a valid UUID' })
+  @ApiProperty({ required: true })
   priorityId: string;
 
   @IsString()
