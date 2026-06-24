@@ -1,4 +1,9 @@
-import { ForbiddenException, Injectable, OnModuleInit } from '@nestjs/common';
+import {
+  ForbiddenException,
+  Injectable,
+  NotFoundException,
+  OnModuleInit,
+} from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { CategoryEntity } from 'src/entities/category.entity';
 import { IsNull, Repository } from 'typeorm';
@@ -39,6 +44,9 @@ export class CategoryService implements OnModuleInit {
 
   async findOne(id: string) {
     const categoryId = await this.categoryRepo.findOne({ where: { id } });
+    if (!categoryId) {
+      throw new NotFoundException('Category is not exists');
+    }
 
     return {
       success: true,
