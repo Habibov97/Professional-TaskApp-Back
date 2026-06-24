@@ -25,6 +25,11 @@ export class CategoryController {
     return this.categoryService.list();
   }
 
+  @Get(':id')
+  findOne(@Param('id') id: string) {
+    return this.categoryService.findOne(id);
+  }
+
   @Post()
   @ApiBearerAuth('JWT-auth')
   @UseGuards(AuthGuard)

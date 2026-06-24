@@ -37,6 +37,15 @@ export class CategoryService implements OnModuleInit {
     });
   }
 
+  async findOne(id: string) {
+    const categoryId = await this.categoryRepo.findOne({ where: { id } });
+
+    return {
+      success: true,
+      data: categoryId,
+    };
+  }
+
   async create(userId: string, body: CreateCategoryDto) {
     const { user } = await this.userService.me(userId);
     if (user.role !== 'admin') {
