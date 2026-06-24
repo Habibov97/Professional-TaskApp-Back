@@ -31,6 +31,7 @@ export class TaskController {
   @UseGuards(AuthGuard)
   @Get()
   findAll(@Req() req: Request) {
+    console.log(req['user'].userId);
     return this.taskService.findAll(req['user'].userId);
   }
 
