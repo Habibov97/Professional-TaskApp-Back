@@ -28,8 +28,8 @@ export class TaskController {
   }
 
   @Get()
-  findAll() {
-    return this.taskService.findAll();
+  findAll(@Req() req: Request) {
+    return this.taskService.findAll(req['user'].id);
   }
 
   @ApiBearerAuth('JWT-auth')

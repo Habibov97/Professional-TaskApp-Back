@@ -73,8 +73,9 @@ export class TaskService {
     };
   }
 
-  async findAll() {
+  async findAll(userId: string) {
     const tasks = await this.taskRepo.find({
+      where: { userId },
       order: { createdAt: 'DESC' },
     });
 
