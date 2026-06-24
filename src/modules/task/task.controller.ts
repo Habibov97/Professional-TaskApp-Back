@@ -29,7 +29,7 @@ export class TaskController {
 
   @Get()
   findAll(@Req() req: Request) {
-    return this.taskService.findAll(req['user'].id);
+    return this.taskService.findAll(req['user'].userId);
   }
 
   @ApiBearerAuth('JWT-auth')
