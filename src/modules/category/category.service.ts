@@ -42,7 +42,7 @@ export class CategoryService implements OnModuleInit {
     });
   }
 
-  async findOne(id: string) {
+  async findCatById(id: string) {
     const categoryId = await this.categoryRepo.findOne({ where: { id } });
     if (!categoryId) {
       throw new NotFoundException('Category is not exists');
