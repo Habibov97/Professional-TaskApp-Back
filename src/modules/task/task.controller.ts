@@ -27,6 +27,8 @@ export class TaskController {
     return this.taskService.create(req['user'].userId, body);
   }
 
+  @ApiBearerAuth('JWT-auth')
+  @UseGuards(AuthGuard)
   @Get()
   findAll(@Req() req: Request) {
     return this.taskService.findAll(req['user'].userId);
