@@ -77,6 +77,10 @@ export class TaskService {
     const tasks = await this.taskRepo.find({
       where: { userId },
       order: { createdAt: 'DESC' },
+      relations: {
+        status: true,
+        priority: true,
+      },
     });
 
     return {
