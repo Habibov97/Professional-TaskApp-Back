@@ -15,6 +15,7 @@ import { AuthGuard } from '../auth/guard/auth.guard';
 import { CreateCategoryDto } from './dto/create-category.dto';
 import Request from 'express';
 import { UpdateCategoryDto } from './dto/update-category.dto';
+import { RolesGuard } from 'src/guards/roles.guard';
 
 @Controller('category')
 export class CategoryController {
@@ -32,14 +33,14 @@ export class CategoryController {
 
   @Post()
   @ApiBearerAuth('JWT-auth')
-  @UseGuards(AuthGuard)
+  @UseGuards(AuthGuard, RolesGuard)
   create(@Req() req: Request, @Body() body: CreateCategoryDto) {
     return this.categoryService.create(req['user'].userId, body);
   }
 
   @Patch(':id')
   @ApiBearerAuth('JWT-auth')
-  @UseGuards(AuthGuard)
+  @UseGuards(AuthGuard, RolesGuard)
   update(
     @Req() req: Request,
     @Param('id') id: string,
@@ -50,7 +51,7 @@ export class CategoryController {
 
   @Delete(':id')
   @ApiBearerAuth('JWT-auth')
-  @UseGuards(AuthGuard)
+  @UseGuards(AuthGuard, RolesGuard)
   remove(@Req() req: Request, @Param('id') id: string) {
     return this.categoryService.remove(req['user'].userId, id);
   }

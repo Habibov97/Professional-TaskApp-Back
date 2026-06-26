@@ -43,6 +43,9 @@ export class TaskEntity extends BaseEntity {
   @JoinColumn({ name: 'priorityId' })
   priority: CategoryEntity;
 
+  @Column({ default: false })
+  vitalTask: boolean;
+
   @Column({ nullable: true })
   avatar: string;
 
