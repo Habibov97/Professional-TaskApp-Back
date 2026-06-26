@@ -1,5 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger';
 import {
+  IsBoolean,
   IsEnum,
   IsOptional,
   IsString,
@@ -30,4 +31,9 @@ export class CreateTaskDto {
   @IsOptional()
   @ApiProperty({ required: false })
   avatar: string;
+
+  @IsBoolean()
+  @IsOptional()
+  @ApiProperty({ default: false, required: false })
+  vitalTask: boolean;
 }
