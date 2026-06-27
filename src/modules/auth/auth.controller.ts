@@ -41,7 +41,18 @@ export class AuthController {
       maxAge: this.configService.get<number>('jwtRefresh.cookieAge'),
     });
 
-    return { accessToken: tokens.accessToken };
+    res.cookie('accessToken', tokens.accessToken, {
+      httpOnly: true,
+      secure: true,
+      sameSite: 'none',
+      maxAge: 1 * 24 * 60 * 60 * 1000,
+    });
+
+    return {
+      status: true,
+      message: 'User logged in successfully',
+      accessToken: tokens.accessToken,
+    };
   }
 
   @Post('/refresh')
@@ -68,7 +79,11 @@ export class AuthController {
       maxAge: 1 * 24 * 60 * 60 * 1000,
     });
 
-    return { accessToken: tokens.accessToken };
+    return {
+      status: true,
+      accessToken: tokens.accessToken,
+      message: 'Token refreshed successfully',
+    };
   }
 
   @ApiBearerAuth('JWT-auth')
