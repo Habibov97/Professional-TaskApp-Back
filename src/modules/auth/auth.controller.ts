@@ -51,7 +51,6 @@ export class AuthController {
     return {
       status: true,
       message: 'User logged in successfully',
-      accessToken: tokens.accessToken,
     };
   }
 
@@ -81,7 +80,6 @@ export class AuthController {
 
     return {
       status: true,
-      accessToken: tokens.accessToken,
       message: 'Token refreshed successfully',
     };
   }
@@ -93,6 +91,7 @@ export class AuthController {
     await this.authService.logout(req['user'].userId);
 
     res.clearCookie('refreshToken');
+    res.clearCookie('accessToken');
 
     return { message: 'Logged out successfully' };
   }
