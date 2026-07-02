@@ -8,7 +8,7 @@ import type { Request } from 'express';
 export class UserController {
   constructor(private readonly userService: UserService) {}
 
-  @Get('/')
+  @Get('/me')
   @ApiBearerAuth('JWT-auth')
   @UseGuards(AuthGuard)
   me(@Req() req: Request) {
